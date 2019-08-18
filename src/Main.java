@@ -3,6 +3,7 @@ public class Main {
         // write your code here
         System.out.println("Test");
         System.out.println("Another Test");
+        System.out.println("Final Test");
     }
 }
 
