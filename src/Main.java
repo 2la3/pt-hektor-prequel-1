@@ -1,10 +1,12 @@
+import protagonist.MC;
+
 public class Main {
     public static void main(String[] args) {
-        // write your code here
-        System.out.println("Test");
-        System.out.println("Another Test");
-        System.out.println("Final Test");
-        System.out.println("Even More Final Test");
+        MC hektor = MC.getMC(50, 10, 20);
+        System.out.println(hektor.hp);
+        System.out.println(hektor.mp);
+        System.out.println(hektor.energy);
+        System.out.println(hektor.exp);
     }
 }
 
