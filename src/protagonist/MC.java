@@ -1,6 +1,10 @@
 package protagonist;
 
 public class MC {
+    private static final int STRENGTH = 50;
+    private static final int INTEL = 10;
+    private static final int VITALITY = 20;
+
     private static MC mc = null;
 
     private int strength;
@@ -26,10 +30,10 @@ public class MC {
 
 
 
-    private MC(int strength, int intel, int vitality) {
-        this.strength = strength;
-        this.intel = intel;
-        this.vitality = vitality;
+    private MC() {
+        this.strength = STRENGTH;
+        this.intel = INTEL;
+        this.vitality = VITALITY;
 
         this.maxHP = 5 * this.vitality + 1 * this.strength;
         this.maxMP = 5 * this.intel;
@@ -51,9 +55,9 @@ public class MC {
 
     }
 
-    public static MC getMC(int strength, int intel, int vitality) {
+    public static MC getMC() {
         if (mc == null)
-            mc = new MC(strength, intel, vitality);
+            mc = new MC();
         return mc;
     }
 }
