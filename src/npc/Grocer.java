@@ -1,4 +1,5 @@
 package npc;
 
-public class Grocer {
+public class Grocer extends NPC {
+
 }

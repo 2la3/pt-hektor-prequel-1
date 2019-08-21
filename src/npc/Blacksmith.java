@@ -1,7 +1,6 @@
 package npc;
 
-public class Blacksmith {
-
+public class Blacksmith extends NPC {
 
 
 }
