@@ -1,5 +1,8 @@
 package locations;
 
+import locations.exceptions.TravelDirectionInvalidException;
+import locations.exceptions.UncheckedEnergyConsumptionException;
+
 import java.util.ArrayList;
 
 public class Map {
@@ -8,6 +11,7 @@ public class Map {
     // Home = 0, Market = 1, Master = 2, Mayor = 3, Garden = 4
     private ArrayList<Vertex> v;
     private ArrayList<Edge> e;
+    private int currentLocationID;
 
     // MODIFIES: this
     // EFFECTS: initializes the map
@@ -34,6 +38,42 @@ public class Map {
         e.add(et);
         et = new Edge(v.get(3), v.get(4), 10);
         e.add(et);
+        currentLocationID = 0;
+    }
+
+    // REQUIRES: direction = "LEFT" or direction = "RIGHT"
+    // MODIFIES: this
+    // EFFECTS: changes the current location on the map
+    public void travel(String direction) throws TravelDirectionInvalidException {
+        if (direction.equals("LEFT") && (currentLocationID != 0)) {
+            currentLocationID--;
+        }
+        if (direction.equals("RIGHT") && (currentLocationID != 4)) {
+            currentLocationID++;
+        }
+        else throw new TravelDirectionInvalidException();
+    }
+
+    // REQUIRES: 4 >= from and to >= 0, from and to have a difference of exactly 1
+    // EFFECTS: returns the energy consumption needed to travel between the two locations
+    public int getEnergyConsumption(int from, int to) {
+        for (Edge edge : e) {
+            if (edge.v1.locationID == from) {
+                if (edge.v2.locationID == to) {
+                    return edge.weight;
+                }
+            }
+            else if (edge.v1.locationID == to) {
+                if (edge.v2.locationID == from) {
+                    return edge.weight;
+                }
+            }
+        }
+        throw new UncheckedEnergyConsumptionException();
+    }
+
+    public int getCurrentLocationID() {
+        return currentLocationID;
     }
 
     public ArrayList<Vertex> getVertex() {
@@ -46,8 +86,8 @@ public class Map {
 
     private class Edge {
 
-        Vertex v1;
-        Vertex v2;
+        final Vertex v1;
+        final Vertex v2;
         int weight;
 
         private Edge(Vertex v1, Vertex v2, int weight) {
@@ -59,7 +99,7 @@ public class Map {
 
     private class Vertex {
 
-        int locationID;
+        final int locationID;
 
         private Vertex(int id) {
             locationID = id;
