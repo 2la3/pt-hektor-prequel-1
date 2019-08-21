@@ -1,20 +1,19 @@
-import protagonist.MC;
+package helpers;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
-public class Main {
-    public static void main(String[] args) {
-//        //test MC single instance
-//        MC hektor = MC.getMC();
-//        System.out.println(hektor.hp);
-//        System.out.println(hektor.mp);
-//        System.out.println(hektor.energy);
-//        System.out.println(hektor.exp);
+public class ReadTxt {
 
-        // The name of the file to open.
-        String fileName = "src//story.txt";
+    String fileName;
 
-        // This will reference one line at a time
+    public ReadTxt(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void printLines() {
         String line = null;
 
         try {
@@ -46,5 +45,5 @@ public class Main {
             // ex.printStackTrace();
         }
     }
-}
 
+}
