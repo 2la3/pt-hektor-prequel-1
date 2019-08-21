@@ -1,10 +1,10 @@
-package test.locations;
-
-import locations.Map;
+package tests.map;
 import locations.exceptions.TravelDirectionInvalidException;
 import locations.exceptions.UncheckedEnergyConsumptionException;
+import map.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +21,7 @@ public class MapTest {
     public void mapSizeTest() {
         assertEquals(4, map.getEdge().size());
         assertEquals(5, map.getVertex().size());
-        System.out.println("Map size test passed");
+        System.out.println("map.Map size test passed");
     }
 
     @Test

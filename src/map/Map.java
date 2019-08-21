@@ -10,7 +10,7 @@ import java.util.List;
 public class Map {
 
     // locationID:
-    // Home = 0, Market = 1, Master = 2, Mayor = 3, Garden = 4
+    // Home = 0, Market = 1, Training Ground = 2, Town Square = 3, Garden = 4
     private List<Vertex> v;
     private List<Edge> e;
     private int currentLocationID;
@@ -74,6 +74,7 @@ public class Map {
         throw new UncheckedEnergyConsumptionException();
     }
 
+    // EFFECTS :: returns a list representing all of the locations that can be reached from the current location
     public List<String> getAdjLocations() {
         ArrayList<Integer> adj = new ArrayList<>();
         ArrayList<String> locs = new ArrayList<>();
@@ -89,11 +90,12 @@ public class Map {
         return currentLocationID;
     }
 
+    // EFFECTS :: returns the String representing the current location
     public String getCurrentLocation() {
         if (currentLocationID == 0) return "Home";
         else if (currentLocationID == 1) return "Market";
-        else if (currentLocationID == 2) return "Master";
-        else if (currentLocationID == 3) return "Mayor";
+        else if (currentLocationID == 2) return "Training Ground";
+        else if (currentLocationID == 3) return "Town Square";
         else if (currentLocationID == 4) return "Garden";
         else throw new CurrentLocationInvalidException();
     }
