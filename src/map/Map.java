@@ -1,16 +1,18 @@
-package locations;
+package map;
 
+import locations.exceptions.CurrentLocationInvalidException;
 import locations.exceptions.TravelDirectionInvalidException;
 import locations.exceptions.UncheckedEnergyConsumptionException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Map {
 
     // locationID:
     // Home = 0, Market = 1, Master = 2, Mayor = 3, Garden = 4
-    private ArrayList<Vertex> v;
-    private ArrayList<Edge> e;
+    private List<Vertex> v;
+    private List<Edge> e;
     private int currentLocationID;
 
     // MODIFIES: this
@@ -72,15 +74,35 @@ public class Map {
         throw new UncheckedEnergyConsumptionException();
     }
 
+    public List<String> getAdjLocations() {
+        ArrayList<Integer> adj = new ArrayList<>();
+        ArrayList<String> locs = new ArrayList<>();
+        if (currentLocationID + 1 <= 4) adj.add(currentLocationID + 1);
+        if (0 <= currentLocationID - 1) adj.add(currentLocationID - 1);
+        for (Integer i : adj) {
+            locs.add(getCurrentLocation());
+        }
+        return locs;
+    }
+
     public int getCurrentLocationID() {
         return currentLocationID;
     }
 
-    public ArrayList<Vertex> getVertex() {
+    public String getCurrentLocation() {
+        if (currentLocationID == 0) return "Home";
+        else if (currentLocationID == 1) return "Market";
+        else if (currentLocationID == 2) return "Master";
+        else if (currentLocationID == 3) return "Mayor";
+        else if (currentLocationID == 4) return "Garden";
+        else throw new CurrentLocationInvalidException();
+    }
+
+    public List<Vertex> getVertex() {
         return v;
     }
 
-    public ArrayList<Edge> getEdge() {
+    public List<Edge> getEdge() {
         return e;
     }
 
