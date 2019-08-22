@@ -6,6 +6,7 @@ public class MC {
     private static final int VITALITY = 20;
 
     private static MC mc = null;
+    private Inventory inv = new Inventory();
 
     private int strength;
     private int intel;
@@ -53,6 +54,16 @@ public class MC {
         this.exp = 0;
 
 
+    }
+
+    // REQUIRES :: hp is positive, zero or negative integer
+    // MODIFIES :: this
+    // EFFECTS :: adjusts the hp of this
+    public void hpAdjustment(int hp) {
+        if (this.hp + hp <= 0) {
+            // IMPLEMENT THIS HERE
+        }
+        else this.hp = Math.min(this.hp + hp, maxHP);
     }
 
     public static MC getMC() {
