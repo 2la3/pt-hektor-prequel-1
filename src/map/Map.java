@@ -78,12 +78,23 @@ public class Map {
     public List<String> getAdjLocations() {
         ArrayList<Integer> adj = new ArrayList<>();
         ArrayList<String> locs = new ArrayList<>();
-        if (currentLocationID + 1 <= 4) adj.add(currentLocationID + 1);
         if (0 <= currentLocationID - 1) adj.add(currentLocationID - 1);
+        if (currentLocationID + 1 <= 4) adj.add(currentLocationID + 1);
         for (Integer i : adj) {
-            locs.add(getCurrentLocation());
+            locs.add(getNameByID(i));
         }
         return locs;
+    }
+
+    // REQUIRES :: travelling to locName is possible from the current location;
+    // MODIFIES :: this
+    // EFFECTS :: changes current location to locName;
+    public void travelTo(String locName) {
+        if (locName.equals("Home")) currentLocationID = 0;
+        if (locName.equals("Market")) currentLocationID = 1;
+        if (locName.equals("Training Ground")) currentLocationID = 2;
+        if (locName.equals("Town Square")) currentLocationID = 3;
+        if (locName.equals("Garden")) currentLocationID = 4;
     }
 
     public int getCurrentLocationID() {
@@ -91,12 +102,12 @@ public class Map {
     }
 
     // EFFECTS :: returns the String representing the current location
-    public String getCurrentLocation() {
-        if (currentLocationID == 0) return "Home";
-        else if (currentLocationID == 1) return "Market";
-        else if (currentLocationID == 2) return "Training Ground";
-        else if (currentLocationID == 3) return "Town Square";
-        else if (currentLocationID == 4) return "Garden";
+    public String getNameByID(int id) {
+        if (id == 0) return "Home";
+        else if (id == 1) return "Market";
+        else if (id == 2) return "Training Ground";
+        else if (id == 3) return "Town Square";
+        else if (id == 4) return "Garden";
         else throw new CurrentLocationInvalidException();
     }
 

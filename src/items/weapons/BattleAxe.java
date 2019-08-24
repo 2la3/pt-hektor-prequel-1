@@ -6,9 +6,7 @@ public class BattleAxe extends Weapon {
         name = "Battle Axe";
         damage = 9;
         cost = 1750;
+        sellPrice = 900;
     }
 
-    public void use () {
-
-    }
 }

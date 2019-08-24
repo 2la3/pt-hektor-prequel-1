@@ -14,11 +14,26 @@ public class Inventory {
 
     public List<ModPair<Food,Integer>> food = new ArrayList<>();
     public List<ModPair<Weapon,Integer>> weapon = new ArrayList<>();
+    private int coins = 2000;
+
     private int maxSlots = 24;
-    public int currentSlots = 0;
+    private int currentSlots = 0;
 
     // MODIFIES :: this
-    // EFFECTS :: attempts to add the specified item to the inventory. If successful, return true; else return false.
+    // EFFECTS  :: adjusts coin balance by amount and returns true UNLESS adjusting by amount makes the balance negative, in which case don't
+    //             adjust and return false.
+    public boolean coinsModifier(int amount) {
+        if (coins + amount < 0) return false;
+        coins = coins + amount;
+        return true;
+    }
+
+    public boolean enoughCoins(int amount) {
+        return (coins + amount > 0);
+    }
+
+    // MODIFIES :: this
+    // EFFECTS :: attempts to add the specified item to the inventory. If successful, return true; else return false (i.e. inventory is full)
     public boolean inventoryAdd(Item item) {
         if (currentSlots >= maxSlots) return false;
         if (item.getClass().getSuperclass().toString().equals("class items.food.Food")) {
@@ -53,7 +68,7 @@ public class Inventory {
     }
 
     // MODIFIES :: this
-    // EFFECTS :: returns true if item is removed from the inventory, false otherwise
+    // EFFECTS :: returns true if item is removed from the inventory, false otherwise (i.e. item does not exist in the inventory)
     public boolean inventoryRemove(Item item) {
         if (currentSlots <= 0) return false;
         if (item.getClass().getSuperclass().toString().equals("class items.food.Food")) {
@@ -85,6 +100,12 @@ public class Inventory {
         }
         return false;
     }
+
+    public int getCurrentSlots() { return currentSlots; }
+
+    public int getMaxSlots() { return maxSlots; }
+
+    public int getCoins() { return coins; }
 
     public class ModPair<K, V> implements Serializable {
 

@@ -6,9 +6,7 @@ public class VerusAxe extends Weapon {
         name = "Verus Axe";
         damage = 122;
         cost = 19950;
+        sellPrice = 7950;
     }
 
-    public void use() {
-
-    }
 }

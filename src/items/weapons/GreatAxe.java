@@ -6,9 +6,7 @@ public class GreatAxe extends Weapon {
         name = "Great Axe";
         damage = 18;
         cost = 3200;
+        sellPrice = 1400;
     }
 
-    public void use() {
-
-    }
 }

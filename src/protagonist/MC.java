@@ -1,5 +1,9 @@
 package protagonist;
 
+import items.food.Food;
+import items.weapons.Weapon;
+import map.Map;
+
 public class MC {
     private static final int STRENGTH = 50;
     private static final int INTEL = 10;
@@ -29,7 +33,7 @@ public class MC {
     public int energy;
     public int exp;
 
-
+    private Weapon equipped;
 
     private MC() {
         this.strength = STRENGTH;
@@ -41,8 +45,8 @@ public class MC {
         this.maxEnergy = 100;
         this.maxExp = 1000;
 
-        this.attackMin = 5 * this.strength;
-        this.attackMax = 7 * this.strength;
+        this.attackMin = this.strength/5;
+        this.attackMax =  this.strength/4;
         this.defenseMin = 2 * this.strength + this.vitality;
         this.defenseMax = 4 * this.strength + 2* this.vitality;
         this.attackRate = 150 * this.intel;
@@ -52,6 +56,8 @@ public class MC {
         this.mp = this.maxMP;
         this.energy = this.maxEnergy;
         this.exp = 0;
+
+        this.equipped = null;
 
 
     }
@@ -65,6 +71,69 @@ public class MC {
         }
         else this.hp = Math.min(this.hp + hp, maxHP);
     }
+
+    // MODIFIES :: this
+    // EFFECTS :: equips the specified weapon, removes it from the inventory, adjusts damage, and unequips any weapon previously equipped and adds it to inventory
+    public void equipWeapon(Weapon weapon) {
+        Weapon current = equipped;
+        if (inv.inventoryRemove(weapon)) {
+            equipped = weapon;
+            if (current == null) {
+                attackMin = attackMin + equipped.getDamage();
+                attackMax = attackMax + equipped.getDamage();
+            }
+            else {
+                attackMin = attackMin - current.getDamage() + equipped.getDamage();
+                attackMax = attackMax - current.getDamage() + equipped.getDamage();
+                inv.inventoryAdd(current);
+            }
+        }
+    }
+
+    // MODIFIES :: this
+    // EFFECTS :: removes equipped weapon, places it into the inventory, adjusts damage and returns true if space is available, else return false
+    public boolean unequipWeapon(Weapon weapon) {
+        if (equipped == null) return false;
+        if (inv.inventoryAdd(equipped)) {
+            equipped = null;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean useFood(Food food) {
+        if (inv.inventoryRemove(food)) {
+            food.use();
+            return true;
+        }
+        return false;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getIntel() {
+        return intel;
+    }
+
+    public int getVitality() {
+        return vitality;
+    }
+
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
+
+    public int getAttackMax() {
+        return attackMax;
+    }
+
+    public Inventory getInventory() {
+        return inv;
+    }
+
+    public int getMaxHP() { return maxHP; }
 
     public static MC getMC() {
         if (mc == null)

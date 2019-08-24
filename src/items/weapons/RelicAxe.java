@@ -6,9 +6,7 @@ public class RelicAxe extends Weapon {
         name = "Relic Axe";
         damage = 39;
         cost = 6400;
+        sellPrice = 2200;
     }
 
-    public void use() {
-
-    }
 }

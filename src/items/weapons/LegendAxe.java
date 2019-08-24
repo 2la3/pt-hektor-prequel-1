@@ -6,9 +6,7 @@ public class LegendAxe extends Weapon {
         name = "Legend Axe";
         damage = 75;
         cost = 12500;
+        sellPrice = 4600;
     }
 
-    public void use() {
-
-    }
 }

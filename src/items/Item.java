@@ -6,8 +6,13 @@ public abstract class Item {
 
     protected String name;
     protected int cost;
+    protected int sellPrice = 0;
 
     public abstract void use();
+
+    public int getCost() { return cost; }
+
+    public String getName() { return name; }
 
     @Override
     public boolean equals(Object o) {

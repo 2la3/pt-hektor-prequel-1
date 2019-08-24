@@ -33,7 +33,7 @@ public class InventoryTest {
         assertEquals(2, inv.food.size());
         assertEquals(1, inv.food.get(0).value);
         assertEquals(2, inv.food.get(1).value);
-        assertEquals(3, inv.currentSlots);
+        assertEquals(3, inv.getCurrentSlots());
         System.out.println("Adding Food Tests Passed");
         Turkey t3 = new Turkey();
         inv.inventoryRemove(t3);
@@ -45,7 +45,7 @@ public class InventoryTest {
         Blueberries b2 = new Blueberries();
         assertFalse(inv.inventoryRemove(b2));
         assertEquals(1, inv.food.size());
-        assertEquals(1, inv.currentSlots);
+        assertEquals(1, inv.getCurrentSlots());
     }
 
 
