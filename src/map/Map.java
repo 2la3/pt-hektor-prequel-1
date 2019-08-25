@@ -3,6 +3,7 @@ package map;
 import locations.exceptions.CurrentLocationInvalidException;
 import locations.exceptions.TravelDirectionInvalidException;
 import locations.exceptions.UncheckedEnergyConsumptionException;
+import protagonist.MC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,27 +88,71 @@ public class Map {
     }
 
     // REQUIRES :: travelling to locName is possible from the current location;
-    // MODIFIES :: this
-    // EFFECTS :: changes current location to locName;
+    // MODIFIES :: this, MC
+    // EFFECTS :: changes current location to locName; adjusts energy in MC, if not enough energy to travel to locName, return home
     public void travelTo(String locName) {
+        int prevLoc = currentLocationID;
         if (locName.equals("Home")) currentLocationID = 0;
         if (locName.equals("Market")) currentLocationID = 1;
         if (locName.equals("Training Ground")) currentLocationID = 2;
         if (locName.equals("Town Square")) currentLocationID = 3;
         if (locName.equals("Garden")) currentLocationID = 4;
+        int energy = getEnergyConsumption(prevLoc, currentLocationID);
+        MC.getMC().energy = MC.getMC().energy - energy;
+        if (MC.getMC().energy < 0) {
+            currentLocationID = 0;
+        }
+    }
+
+    // REQUIRES :: locName is one of "Home", "Market", "Training Ground", "Town Square" or "Garden"
+    // MODIFIES :: this, MC
+    // EFFECTS :: changes current location to locName; adjusts energy in MC and return true, if not enough energy to travel to locName return false
+    public boolean travelToAuto(String locName) {
+        int prevLoc = currentLocationID;
+        int travelTo = getIDbyName(locName);
+        if (prevLoc == travelTo) return true;
+        else if (prevLoc > travelTo) {
+            int energy = getEnergyConsumption(prevLoc, prevLoc - 1);
+            if (MC.getMC().forceUseEnergy(energy)) {
+                currentLocationID--;
+                return travelToAuto(locName);
+            }
+        }
+        else if (prevLoc < travelTo) {
+            int energy = getEnergyConsumption(prevLoc, prevLoc + 1);
+            if (MC.getMC().forceUseEnergy(energy)) {
+                currentLocationID++;
+                return travelToAuto(locName);
+            }
+        }
+        return false;
     }
 
     public int getCurrentLocationID() {
         return currentLocationID;
     }
 
-    // EFFECTS :: returns the String representing the current location
+    // REQUIRES :: 0 <= id <= 4
+    // MODIFIES :: none
+    // EFFECTS :: returns the String representing the location id
     public String getNameByID(int id) {
         if (id == 0) return "Home";
         else if (id == 1) return "Market";
         else if (id == 2) return "Training Ground";
         else if (id == 3) return "Town Square";
         else if (id == 4) return "Garden";
+        else throw new CurrentLocationInvalidException();
+    }
+
+    // REQUIRES :: name is one of "Home", "Market", "Training Ground", "Town Square" or "Garden"
+    // MODIFIES :: none
+    // EFFECTS :: returns the locationID of the location represented by name
+    public int getIDbyName(String name) {
+        if (name.equals("Home")) return 0;
+        else if (name.equals("Market")) return 1;
+        else if (name.equals("Training Ground")) return 2;
+        else if (name.equals("Town Square")) return 3;
+        else if (name.equals("Garden")) return 4;
         else throw new CurrentLocationInvalidException();
     }
 
@@ -132,9 +177,9 @@ public class Map {
         }
     }
 
-    private class Vertex {
+    public class Vertex {
 
-        final int locationID;
+        public final int locationID;
 
         private Vertex(int id) {
             locationID = id;

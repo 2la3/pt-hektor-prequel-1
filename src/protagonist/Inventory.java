@@ -1,5 +1,6 @@
 package protagonist;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import items.Item;
 import items.food.Blueberries;
 import items.food.Food;
@@ -14,6 +15,7 @@ public class Inventory {
 
     public List<ModPair<Food,Integer>> food = new ArrayList<>();
     public List<ModPair<Weapon,Integer>> weapon = new ArrayList<>();
+    public List<ModPair<Item, Integer>> other = new ArrayList<>();
     private int coins = 2000;
 
     private int maxSlots = 24;
@@ -26,6 +28,12 @@ public class Inventory {
         if (coins + amount < 0) return false;
         coins = coins + amount;
         return true;
+    }
+
+    // MODIFIES :: this
+    // EFFECTS :: modifies coin balance by amount
+    public void forceCoinsModifier(int amount) {
+        coins = coins + amount;
     }
 
     public boolean enoughCoins(int amount) {
@@ -64,7 +72,19 @@ public class Inventory {
             currentSlots++;
             return true;
         }
-        throw new InventoryAdditionUnexpectedResultException();
+        else {
+            for (ModPair<Item, Integer> flist : other) {
+                if (flist.key.equals(item)) {
+                    flist.value++;
+                    currentSlots++;
+                    return true;
+                }
+            }
+            ModPair<Item, Integer> mp = new ModPair<>(item, 1);
+            other.add(mp);
+            currentSlots++;
+            return true;
+        }
     }
 
     // MODIFIES :: this
@@ -92,6 +112,20 @@ public class Inventory {
                         flist.value--;
                     } else {
                         weapon.remove(flist);
+                    }
+                    currentSlots--;
+                    return true;
+                }
+            }
+        }
+        else {
+            for (ModPair<Item, Integer> flist : other) {
+                if (flist.key.equals(item)) {
+                    if (flist.value > 1) {
+                        flist.value--;
+                    }
+                    else {
+                        other.remove(flist);
                     }
                     currentSlots--;
                     return true;

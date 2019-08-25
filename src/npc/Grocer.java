@@ -24,9 +24,9 @@ public class Grocer extends Shopkeeper {
         foodList.add(t);
     }
 
-    private List<Food> getFoodList() { return foodList; }
+    public List<Food> getFoodList() { return foodList; }
 
-    public static Grocer getBlacksmith() {
+    public static Grocer getGrocer() {
         if (grocer == null) {
             grocer = new Grocer();
         }

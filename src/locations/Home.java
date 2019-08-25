@@ -30,4 +30,8 @@ public class Home {
         }
         return false;
     }
+
+    public static void ambulanceRest() {
+        MC.getMC().energy = 20;
+    }
 }
