@@ -2,6 +2,7 @@ package protagonist;
 
 import items.food.Food;
 import items.weapons.Weapon;
+import npc.Ambulance;
 import protagonist.techniques.RegularHit;
 import protagonist.techniques.Technique;
 
@@ -48,15 +49,15 @@ public class MC extends Observable implements Observer {
         this.intel = INTEL;
         this.vitality = VITALITY;
 
-        this.maxHP = 5 * this.vitality + 1 * this.strength;
+        this.maxHP = 5 * this.vitality + this.strength;
         this.maxMP = 5 * this.intel;
         this.maxEnergy = 100;
         this.maxExp = 1000;
 
-        this.attackBase = this.strength/5;
+        this.attackBase = this.strength/4;
         this.attackTotal =  this.strength/4;
-        this.defenseBase = 2 * this.strength + this.vitality;
-        this.defenseTotal = 4 * this.strength + 2* this.vitality;
+        this.defenseBase = this.strength/5 + this.vitality/5;
+        this.defenseTotal = this.strength/5 + this.vitality/5;
         this.attackRate = 150 * this.intel;
         this.defenseRate = 100 * this.intel;
 
@@ -78,6 +79,7 @@ public class MC extends Observable implements Observer {
     public boolean hpAdjustment(int hp) {
         if (this.hp + hp <= 0) {
             this.hp = this.hp + hp;
+            Ambulance.serveHP();
             return false;
         }
         else this.hp = Math.min(this.hp + hp, maxHP);
@@ -119,6 +121,8 @@ public class MC extends Observable implements Observer {
         return false;
     }
 
+    // MODIFIES :: MC.inv, this.hp
+    // EFFECTS :: attempts to use food item, if successful, modifies this.hp, removes food item from inventory and returns true, else return false
     public boolean useFood(Food food) {
         if (inv.inventoryRemove(food)) {
             food.use();
@@ -135,12 +139,63 @@ public class MC extends Observable implements Observer {
         return energy >= 0;
     }
 
+    // MODIFIES :: this
+    // EFFECTS :: adds experience to the experience counter. If experience counter is full, level up and adjusts base stats, return true, if experience
+    //            counter is not full, return false
+    public boolean experienceGain(int experience) {
+        this.exp = exp + experience;
+        if (exp > 1000) {
+            exp = exp - 1000;
+            level++;
+            baseStatReset();
+            return true;
+        }
+        else return false;
+    }
+
+    // MODIFIES :: this
+    // EFFECTS :: resets MC stats out of combat
+    public void baseStatReset() {
+        strength = STRENGTH + 5 * (level - 1);
+        intel = INTEL + (level - 1);
+        vitality = VITALITY + 3 * (level - 1);
+        attackBase = strength/4;
+        if (equipped != null) {
+            attackTotal = attackBase + equipped.getDamage();
+        }
+        else attackTotal = attackBase;
+        defenseBase = this.strength/5 + this.vitality/5;
+        defenseTotal = defenseBase;
+        this.maxHP = 5 * this.vitality + this.strength;
+        this.maxMP = 5 * this.intel;
+    }
+
+    // MODIFIES :: this
+    // EFFECTS :: calculates new attack, defense and MP levels if any stat changes occurred.
+    public void combatCycleStatUpdate() {
+        attackBase = strength/4;
+        if (equipped != null) {
+            attackTotal = attackBase + equipped.getDamage();
+        }
+        else attackTotal = attackBase;
+        defenseBase = this.strength/5 + this.vitality/5;
+        defenseTotal = defenseBase;
+        mp = Math.min(mp + 20, maxMP);
+    }
+
+    // MODIFIES :: this
+    // EFFECTS :: every time a new combat cycle is started, update combat relevant stats and notify combat techniques of a new cycle
     @Override
     public void update(Observable o, Object arg) {
+        setChanged();
         if (arg.equals("true")) {
+            combatCycleStatUpdate();
             notifyObservers("true");
         }
-        else notifyObservers("false");
+        else {
+            notifyObservers("false");
+            baseStatReset();
+        }
     }
 
     public Weapon getEquipped() { return equipped; }
@@ -170,6 +225,8 @@ public class MC extends Observable implements Observer {
     }
 
     public int getMaxHP() { return maxHP; }
+
+    public int getDefenseTotal() { return defenseTotal; }
 
     public static MC getMC() {
         if (mc == null)

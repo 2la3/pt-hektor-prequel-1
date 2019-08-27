@@ -33,5 +33,6 @@ public class Home {
 
     public static void ambulanceRest() {
         MC.getMC().energy = 20;
+        MC.getMC().hp = MC.getMC().getMaxHP()/5;
     }
 }

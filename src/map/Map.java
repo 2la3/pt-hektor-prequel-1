@@ -132,6 +132,10 @@ public class Map {
         return currentLocationID;
     }
 
+    public void returnHome() {
+        currentLocationID = 0;
+    }
+
     // REQUIRES :: 0 <= id <= 4
     // MODIFIES :: none
     // EFFECTS :: returns the String representing the location id

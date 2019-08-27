@@ -1,9 +1,14 @@
 package ui;
 
+import items.Item;
 import items.food.Food;
 import items.weapons.Weapon;
+import locations.Garden;
 import locations.Home;
 import map.Map;
+import monsters.FightUI;
+import monsters.Monster;
+import monsters.Rabbit;
 import npc.Ambulance;
 import npc.Blacksmith;
 import npc.Grocer;
@@ -100,7 +105,14 @@ public class TextUI {
         System.out.println("9. Character");
         Scanner sc1 = new Scanner(System.in);
         int opt = sc1.nextInt();
-        if (opt == 8) travel();
+        if (opt == 1 || opt == 2 || opt == 3) {
+            Monster m;
+            if (opt == 1) m = Garden.shallowForest();
+            else if (opt == 2) m = Garden.middleForest();
+            else m = Garden.deepForest();
+            FightUI fightUI = new FightUI(m);
+        }
+        else if (opt == 8) travel();
         else if (opt == 9) viewCharInfo();
         else System.out.println("Invalid Selection");
     }
@@ -183,6 +195,7 @@ public class TextUI {
         System.out.println("INVENTORY ACTIONS:");
         List<Inventory.ModPair<Food,Integer>> food = mc.getInventory().food;
         List<Inventory.ModPair<Weapon,Integer>> weapon = mc.getInventory().weapon;
+        List<Inventory.ModPair<Item, Integer>> other = mc.getInventory().other;
         for (int i = 0; i < food.size(); i++) {
             System.out.println(food.get(i).key.getName() + " -  Quantity: " + food.get(i).value + " " + "Heal:" + " " + food.get(i).key.getHeal()
                     + " " + "TO USE:" + " " + (i + 1));
@@ -190,6 +203,10 @@ public class TextUI {
         int cons = food.size();
         for (int i = cons; i < weapon.size() + cons; i++) {
             System.out.println(weapon.get(i - cons).key.getName() + " -  Quantity: " + weapon.get(i - cons).value + " " + "TO EQUIP:" + " " + (i + 1));
+        }
+        int itemCons = food.size() + weapon.size();
+        for (int i = itemCons; i < other.size() + itemCons; i++) {
+            System.out.println(other.get(i - itemCons).key.getName() + " -  Quantity: " + other.get(i - itemCons).value + " " + "TO DROP:" + " " + (i + 1));
         }
         System.out.println("91. Check Equipped Weapon");
         System.out.println("92. Unequip Weapon");
@@ -207,16 +224,20 @@ public class TextUI {
         }
         else if (opt == 99) return;
         else {
-            if (0 < opt && opt <= food.size() + weapon.size()) {
+            if (0 < opt && opt <= food.size() + weapon.size() + other.size()) {
                 if (opt <= food.size()) {
                     String name = food.get(opt - 1).key.getName();
                     if (mc.useFood(food.get(opt - 1).key)) System.out.println("Used a " + name);
                 }
-                else {
+                else if (opt <= weapon.size() + food.size()) {
                     String name = weapon.get(opt - cons - 1).key.getName();
                     if (mc.equipWeapon(weapon.get(opt - cons - 1).key)) System.out.println("Equipped: " + name);
                     else System.out.println("You are not high enough level to equip this weapon." + " You need level: " + weapon.get(opt - cons - 1).key.getEquipLevel()
                     + " " + "You are level: " + MC.getMC().level);
+                }
+                else {
+                    String name = other.get(opt - itemCons - 1).key.getName();
+                    if (mc.getInventory().inventoryRemove(food.get(opt - itemCons - 1).key)) System.out.println("Removed " + name + " from inventory");
                 }
             }
             else System.out.println("Invalid Option Selected");
