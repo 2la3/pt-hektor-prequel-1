@@ -2,6 +2,7 @@ package protagonist.techniques;
 
 import monsters.Monster;
 
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -10,6 +11,7 @@ public abstract class Technique implements Observer {
     String name;
     int damage;
     int mana;
+    int level;
     public boolean fightActive = false;
     public boolean abilityActive = false;
     public int fightCycle = 0;
@@ -20,7 +22,7 @@ public abstract class Technique implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg.equals("true")) {
+        if (arg.equals(true)) {
             fightActive = true;
             fightCycle++;
             checkAbility();
@@ -48,8 +50,22 @@ public abstract class Technique implements Observer {
     public abstract boolean unActivateAbility();
     public abstract void damageUpdate();
 
+    public int getLevel() { return level; }
+
     public int getDamage() { return damage; }
 
     public int getMana() { return mana; }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Technique)) return false;
+        Technique technique = (Technique) o;
+        return Objects.equals(name, technique.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

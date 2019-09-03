@@ -183,17 +183,22 @@ public class MC extends Observable implements Observer {
         mp = Math.min(mp + 20, maxMP);
     }
 
+    public void addTechnique(Technique t) {
+        techniques.add(t);
+        addObserver(t);
+    }
+
     // MODIFIES :: this
     // EFFECTS :: every time a new combat cycle is started, update combat relevant stats and notify combat techniques of a new cycle
     @Override
     public void update(Observable o, Object arg) {
         setChanged();
-        if (arg.equals("true")) {
+        if (arg.equals(true)) {
             combatCycleStatUpdate();
-            notifyObservers("true");
+            notifyObservers(true);
         }
         else {
-            notifyObservers("false");
+            notifyObservers(false);
             baseStatReset();
         }
     }
@@ -232,5 +237,9 @@ public class MC extends Observable implements Observer {
         if (mc == null)
             mc = new MC();
         return mc;
+    }
+
+    public void setStrength(int str) {
+        strength = str;
     }
 }

@@ -30,7 +30,7 @@ public class FightUI extends Observable {
         MC mc = MC.getMC();
         while (status) {
             setChanged();
-            notifyObservers("true");
+            notifyObservers(true);
             System.out.println("* Select your next move *");
             for (int i = 0; i < mc.techniques.size(); i++) {
                 System.out.println((i+1) + "." + " " + mc.techniques.get(i).getName() + " " + "Mana Cost: " + mc.techniques.get(i).getMana());
@@ -85,7 +85,7 @@ public class FightUI extends Observable {
             }
         }
         setChanged();
-        notifyObservers("false");
+        notifyObservers(false);
     }
 
 }
