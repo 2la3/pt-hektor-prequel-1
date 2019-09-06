@@ -1,0 +1,3 @@
+hey, remember when you said we shouldn't make it so you could go directly from any location to any other location cause it would make calculating energy too hard?
+i think i have an idea of a way to do it which wouldn't make it an issue.
+i think if we use a recursive function that calls on itself to move in a sequential order during implementation it would work out pretty well
