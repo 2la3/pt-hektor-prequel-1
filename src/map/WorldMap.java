@@ -7,11 +7,12 @@ import protagonist.MC;
 import java.util.*;
 
 public class WorldMap {
+    private static WorldMap wm = null;
 
     private Graph<enumLcn, String> g = new DefaultDirectedWeightedGraph<>(String.class);
     private enumLcn currL;
 
-    public WorldMap() {
+    private WorldMap() {
         g.addVertex(enumLcn.HOME);
         g.addVertex(enumLcn.MARKET);
         g.addVertex(enumLcn.T_GROUND);
@@ -70,4 +71,10 @@ public class WorldMap {
     public enumLcn getCurrL() {
         return currL;
     }
+
+    public static WorldMap getWorldMap() {
+        if (wm == null) wm = new WorldMap();
+        return wm;
+    }
+
 }

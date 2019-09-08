@@ -17,8 +17,8 @@ import protagonist.MC;
 import ui.locations.*;
 
 public class Ch0 extends Chapter {
-    private WorldMap wm = new WorldMap();
-    private MC mc = MC.getMC();
+    private WorldMap wm = WorldMap.getWorldMap();
+    //private MC mc = MC.getMC();
 
     Stage window;
     Button btnBackToMenu;

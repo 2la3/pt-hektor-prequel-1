@@ -8,7 +8,7 @@ public class WorldMapTest {
     private WorldMap wm;
 
     @BeforeEach
-    public void setup() {wm = new WorldMap();}
+    public void setup() {wm = WorldMap.getWorldMap();}
 
     @Test
     public void draftTest() {
