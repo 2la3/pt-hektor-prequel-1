@@ -11,8 +11,10 @@ import monsters.Monster;
 import npc.Ambulance;
 import npc.Blacksmith;
 import npc.Grocer;
+import npc.Master;
 import protagonist.Inventory;
 import protagonist.MC;
+import protagonist.techniques.Technique;
 
 import java.util.List;
 import java.util.Scanner;
@@ -72,13 +74,14 @@ public class TextUI {
 
     private void trainingGround() {
         System.out.println("Training Ground :: Activities");
-        System.out.println("1. Speak To Master");
+        System.out.println("1. Learn Skill from Master");
         System.out.println("2. Train");
         System.out.println("8. Travel");
         System.out.println("9. Character");
         Scanner sc1 = new Scanner(System.in);
         int opt = sc1.nextInt();
-        if (opt == 8) travel();
+        if (opt == 1) skillLearn();
+        else if (opt == 8) travel();
         else if (opt == 9) viewCharInfo();
         else System.out.println("Invalid Selection");
     }
@@ -143,6 +146,20 @@ public class TextUI {
             }
         }
         else System.out.println("Invalid Travel map.Location");
+    }
+
+    public void skillLearn() {
+        List<Technique> techs = Master.getMaster().getTechs();
+        System.out.println("TECHNIQUES");
+        for (int i = 0; i < techs.size(); i ++) {
+            System.out.println(i + 1 + "." + " " + techs.get(i).getName() + " " + "Level to Learn: " + techs.get(i).getLevel());
+        }
+        Scanner sc1 = new Scanner(System.in);
+        int opt = sc1.nextInt();
+        if (Master.getMaster().skillLearn(Master.getMaster().getTechs().get(opt-1))) {
+            System.out.println("Technique learned!");
+        }
+        else System.out.println("Technique could not be learned");
     }
 
     public void shopBlacksmith() {
