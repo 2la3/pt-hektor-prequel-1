@@ -14,7 +14,7 @@ import map.enumLcn;
 import map.WorldMap;
 import protagonist.MC;
 
-import ui.locations.*;
+import locations.*;
 
 public class Ch0 extends Chapter {
     private WorldMap wm = new WorldMap();

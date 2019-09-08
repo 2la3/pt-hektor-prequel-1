@@ -1,8 +1,7 @@
-package ui.locations;
+package locations;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import monsters.*;
 
 import java.util.Random;

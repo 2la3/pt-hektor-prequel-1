@@ -1,11 +1,10 @@
-package ui.locations;
+package locations;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class TrainingGround extends Location {
-
-    public TrainingGround(Button btnBack, Button btnNext, Label lblStory) {
+public class TownSquare extends Location {
+    public TownSquare(Button btnBack, Button btnNext, Label lblStory) {
         super(btnBack, btnNext, lblStory);
     }
 
