@@ -1,8 +1,8 @@
 package map;
 
-import locations.exceptions.CurrentLocationInvalidException;
-import locations.exceptions.TravelDirectionInvalidException;
-import locations.exceptions.UncheckedEnergyConsumptionException;
+import ui.locations.exceptions.CurrentLocationInvalidException;
+import ui.locations.exceptions.TravelDirectionInvalidException;
+import ui.locations.exceptions.UncheckedEnergyConsumptionException;
 import protagonist.MC;
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class Map {
     }
 
     // REQUIRES: 4 >= from and to >= 0, from and to have a difference of exactly 1
-    // EFFECTS: returns the energy consumption needed to travel between the two locations
+    // EFFECTS: returns the energy consumption needed to travel between the two ui.locations
     public int getEnergyConsumption(int from, int to) {
         for (Edge edge : e) {
             if (edge.v1.locationID == from) {
@@ -75,7 +75,7 @@ public class Map {
         throw new UncheckedEnergyConsumptionException();
     }
 
-    // EFFECTS :: returns a list representing all of the locations that can be reached from the current location
+    // EFFECTS :: returns a list representing all of the ui.locations that can be reached from the current location
     public List<String> getAdjLocations() {
         ArrayList<Integer> adj = new ArrayList<>();
         ArrayList<String> locs = new ArrayList<>();

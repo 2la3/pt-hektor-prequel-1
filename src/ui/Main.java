@@ -37,21 +37,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//        primaryStage.setTitle("Priston Tale - Hektor's Journey");
-//        lblTitle = new Label("Priston Tale - Hektor's Journey");
-//        btnStart = new Button("Start");
-//
-//        btnStart.setOnAction(e -> startCh0());
-//
-//        BorderPane layout = new BorderPane();
-//        BorderPane.setAlignment(lblTitle, Pos.CENTER);
-//        BorderPane.setAlignment(btnStart, Pos.CENTER);
-//        layout.setTop(lblTitle);
-//        layout.setCenter(btnStart);
-//
-//        Scene scene = new Scene(layout, 600, 400);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
 
         pStage = primaryStage;
         display();

@@ -1,6 +1,6 @@
-package locations;
+package map;
 
-public enum Location {
+public enum enumLcn {
     HOME,
     MARKET,
     T_GROUND,

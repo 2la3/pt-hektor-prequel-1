@@ -1,11 +1,27 @@
-package locations;
+package ui.locations;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import monsters.*;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
-public class Garden {
+public class Garden extends Location {
+
+    public Garden(Button btnBack, Button btnNext, Label lblStory) {
+        super(btnBack, btnNext, lblStory);
+    }
+
+    @Override
+    void loadStoryParts() {
+
+    }
+
+    @Override
+    void displayPlayOptions() {
+
+    }
 
     public static Monster shallowForest() {
         Random rand = new Random();

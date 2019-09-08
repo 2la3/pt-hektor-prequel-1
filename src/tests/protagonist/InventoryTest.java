@@ -2,8 +2,6 @@ package tests.protagonist;
 
 import items.food.Blueberries;
 import items.food.Turkey;
-import locations.exceptions.TravelDirectionInvalidException;
-import locations.exceptions.UncheckedEnergyConsumptionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import protagonist.Inventory;

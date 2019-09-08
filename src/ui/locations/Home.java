@@ -1,8 +1,14 @@
-package locations;
+package ui.locations;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import protagonist.MC;
 
-public class Home {
+public class Home extends Location {
+
+    public Home(Button btnBack, Button btnNext, Label lblStory) {
+        super(btnBack, btnNext, lblStory);
+    }
 
     // REQUIRES :: location on Map is at home; i.e. location id == 0.
     // MODIFIES :: MC
@@ -34,5 +40,19 @@ public class Home {
     public static void ambulanceRest() {
         MC.getMC().energy = 20;
         MC.getMC().hp = MC.getMC().getMaxHP()/5;
+    }
+
+    @Override
+    void loadStoryParts() {
+        storyParts.add("Home Part 1");
+        storyParts.add("Home Part 2");
+    }
+
+    @Override
+    void displayPlayOptions() {
+        btnBack.setDisable(true);
+        btnNext.setDisable(true);
+
+        System.out.println("Showing play options");
     }
 }

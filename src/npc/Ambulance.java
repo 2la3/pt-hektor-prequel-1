@@ -1,6 +1,6 @@
 package npc;
 
-import locations.Home;
+import ui.locations.Home;
 import map.Map;
 import protagonist.MC;
 

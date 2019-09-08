@@ -1,6 +1,6 @@
 package tests.map;
-import locations.exceptions.TravelDirectionInvalidException;
-import locations.exceptions.UncheckedEnergyConsumptionException;
+import ui.locations.exceptions.TravelDirectionInvalidException;
+import ui.locations.exceptions.UncheckedEnergyConsumptionException;
 import map.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

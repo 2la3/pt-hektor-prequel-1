@@ -3,12 +3,11 @@ package ui;
 import items.Item;
 import items.food.Food;
 import items.weapons.Weapon;
-import locations.Garden;
-import locations.Home;
+import ui.locations.Garden;
+import ui.locations.Home;
 import map.Map;
 import monsters.FightUI;
 import monsters.Monster;
-import monsters.Rabbit;
 import npc.Ambulance;
 import npc.Blacksmith;
 import npc.Grocer;
@@ -127,7 +126,7 @@ public class TextUI {
         if (0 < opt && opt <= adj.size()) {
             map.travelTo(adj.get(opt - 1));
         }
-        else System.out.println("Invalid Travel Location");
+        else System.out.println("Invalid Travel map.Location");
     }
 
     private void travel() {
@@ -143,7 +142,7 @@ public class TextUI {
                 System.out.println("Oh no! You ran out of energy. Someone called the ambulance to bring you home. The ambulance billed: C" + cost);
             }
         }
-        else System.out.println("Invalid Travel Location");
+        else System.out.println("Invalid Travel map.Location");
     }
 
     public void shopBlacksmith() {
