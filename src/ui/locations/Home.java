@@ -1,4 +1,4 @@
-package locations;
+package ui.locations;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
