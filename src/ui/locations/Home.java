@@ -45,8 +45,10 @@ public class Home extends Location {
 
     @Override
     void loadStoryParts() {
-        storyParts.add("Home Part 1");
-        storyParts.add("Home Part 2");
+        if (storyParts.isEmpty()) {
+            storyParts.add("Home Part 1");
+            storyParts.add("Home Part 2");
+        }
     }
 
     @Override
