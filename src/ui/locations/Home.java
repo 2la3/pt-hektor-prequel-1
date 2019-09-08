@@ -2,12 +2,13 @@ package ui.locations;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import protagonist.MC;
 
 public class Home extends Location {
 
-    public Home(Button btnBack, Button btnNext, Label lblStory) {
-        super(btnBack, btnNext, lblStory);
+    public Home(BorderPane bpMainLayout, Button btnBack, Button btnNext, Label lblStory) {
+        super(bpMainLayout, btnBack, btnNext, lblStory);
     }
 
     // REQUIRES :: location on Map is at home; i.e. location id == 0.
@@ -52,6 +53,7 @@ public class Home extends Location {
     void displayPlayOptions() {
         btnBack.setDisable(true);
         btnNext.setDisable(true);
+        storyParts.clear();
 
         System.out.println("Showing play options");
     }

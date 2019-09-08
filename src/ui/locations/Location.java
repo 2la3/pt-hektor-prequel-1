@@ -2,18 +2,21 @@ package ui.locations;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Location {
+    protected BorderPane bpMainLayout;
     protected Button btnBack;
     protected Button btnNext;
     protected Label lblStory;
     protected List<String> storyParts;
     private int storyIndex;
 
-    public Location(Button btnBack, Button btnNext, Label lblStory) {
+    public Location(BorderPane bpMainLayout, Button btnBack, Button btnNext, Label lblStory) {
+        this.bpMainLayout = bpMainLayout;
         this.btnBack = btnBack;
         this.btnNext = btnNext;
         this.lblStory = lblStory;

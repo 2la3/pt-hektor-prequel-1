@@ -2,14 +2,15 @@ package ui.locations;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import monsters.*;
 
 import java.util.Random;
 
 public class Garden extends Location {
 
-    public Garden(Button btnBack, Button btnNext, Label lblStory) {
-        super(btnBack, btnNext, lblStory);
+    public Garden(BorderPane bpMainLayout, Button btnBack, Button btnNext, Label lblStory) {
+        super(bpMainLayout, btnBack, btnNext, lblStory);
     }
 
     @Override
