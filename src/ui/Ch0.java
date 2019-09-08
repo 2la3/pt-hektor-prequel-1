@@ -76,11 +76,11 @@ public class Ch0 extends Chapter {
         scene = new Scene(bpMainLayout, 600, 400);
         window.setScene(scene);
 
-        home = new Home(btnBack, btnNext, lblStory);
-        garden = new Garden(btnBack, btnNext, lblStory);
-        market = new Market(btnBack, btnNext, lblStory);
-        tGround = new TrainingGround(btnBack, btnNext, lblStory);
-        tSquare = new TownSquare(btnBack, btnNext, lblStory);
+        home = new Home(bpMainLayout, btnBack, btnNext, lblStory);
+        garden = new Garden(bpMainLayout, btnBack, btnNext, lblStory);
+        market = new Market(bpMainLayout, btnBack, btnNext, lblStory);
+        tGround = new TrainingGround(bpMainLayout, btnBack, btnNext, lblStory);
+        tSquare = new TownSquare(bpMainLayout, btnBack, btnNext, lblStory);
     }
 
     @Override
