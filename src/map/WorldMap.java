@@ -72,6 +72,11 @@ public class WorldMap {
         return currL;
     }
 
+    // use for test only thanks
+    public void setLocation(enumLcn lcn) {
+        currL = lcn;
+    }
+
     public static WorldMap getWorldMap() {
         if (wm == null) wm = new WorldMap();
         return wm;
