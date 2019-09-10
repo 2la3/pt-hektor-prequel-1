@@ -86,9 +86,9 @@ public class Ch0 extends Chapter {
     @Override
     public void display() {
         window.show();
-        /* CHANGED THIS */
-        wm.setLocation(enumLcn.GARDEN);
-        /* END CHANGES */
+//        /* CHANGED THIS */
+//        wm.setLocation(enumLcn.GARDEN);
+//        /* END CHANGES */
         enumLcn currL = wm.getCurrL();
         displayCurrL(currL);
     }
@@ -124,4 +124,5 @@ public class Ch0 extends Chapter {
         window.hide();
         //((Node)(event.getSource())).getScene().getWindow().hide();
     }
+
 }

@@ -71,6 +71,5 @@ public class Main extends Application {
         pStage.show();
     }
 
-
 }
 
