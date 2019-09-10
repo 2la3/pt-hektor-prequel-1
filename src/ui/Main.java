@@ -20,11 +20,20 @@ import java.util.List;
 import static javafx.application.Application.launch;
 
 public class Main extends Application {
+    private static Main main = null;
     private Stage pStage;
 
     private Label lblTitle;
     private Button btnStart;
-    private List<Chapter> chapters = new ArrayList<Chapter>();
+    //private List<Chapter> chapters = new ArrayList<Chapter>();
+
+
+    public static Main getMain() {
+        if (main == null) main = new Main();
+        return main;
+    }
+
+    //private Main() {}
 
     public static void main(String[] args) {
 //        // Test readTxt
@@ -41,11 +50,12 @@ public class Main extends Application {
         pStage = primaryStage;
         display();
 
-        chapters.add(new Ch0(this));
+        //chapters.add(Ch0.getCh0());
     }
 
     public void startCh0() {
-        Chapter ch0 = chapters.get(0);
+        Ch0 ch0 = Ch0.getCh0();
+        //Chapter ch0 = chapters.get(0);
         ch0.display();
 
         pStage.hide();

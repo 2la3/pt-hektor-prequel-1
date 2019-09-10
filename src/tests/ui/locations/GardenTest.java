@@ -19,7 +19,7 @@ public class GardenTest extends Application {
         wm.travelTo(enumLcn.T_SQUARE);
         wm.travelTo(enumLcn.GARDEN);
 
-        Chapter ch0 = new Ch0(new Main());
+        Chapter ch0 = Ch0.getCh0();
         ch0.display();
     }
 }

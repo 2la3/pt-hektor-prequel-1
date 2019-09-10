@@ -17,7 +17,10 @@ import protagonist.MC;
 import ui.locations.*;
 
 public class Ch0 extends Chapter {
+    private static Ch0 ch0 = null;
+
     private WorldMap wm = WorldMap.getWorldMap();
+    private Main main = Main.getMain();
     //private MC mc = MC.getMC();
 
     Stage window;
@@ -36,8 +39,12 @@ public class Ch0 extends Chapter {
     TownSquare tSquare;
     TrainingGround tGround;
 
-    public Ch0(Main menu) {
-        super(menu);
+    public static Ch0 getCh0() {
+        if (ch0 == null) ch0 = new Ch0();
+        return ch0;
+    }
+
+    private Ch0() {
         window = new Stage();
         //Block events to other windows
         window.initModality(Modality.APPLICATION_MODAL);
@@ -120,7 +127,7 @@ public class Ch0 extends Chapter {
     }
 
     public void backToMenu() {
-        menu.display();
+        main.display();
         window.hide();
         //((Node)(event.getSource())).getScene().getWindow().hide();
     }
