@@ -3,6 +3,9 @@ package ui.locations;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import map.WorldMap;
+import map.enumLcn;
+import ui.Ch0;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,27 @@ public abstract class Location {
             displayStoryPart();
         }
         else displayPlayOptions();
+    }
+
+    private void travelTo(enumLcn loc) {
+        WorldMap.getWorldMap().travelTo(loc);
+        // somehow go to the screen for that location?
+        if (loc == enumLcn.HOME) Ch0.getCh0().getHome().display();
+        if (loc == enumLcn.MARKET) Ch0.getCh0().getMarket().display();
+        if (loc == enumLcn.T_GROUND) Ch0.getCh0().gettGround().display();
+        if (loc == enumLcn.T_SQUARE) Ch0.getCh0().gettSquare().display();
+        if (loc == enumLcn.GARDEN) Ch0.getCh0().getGarden().display();
+    }
+
+    List<Button> getTravelOptions() {
+        List<enumLcn> adjLocations = WorldMap.getWorldMap().getAdjLocations();
+        ArrayList<Button> buttons = new ArrayList<Button>();
+        for (enumLcn loc : adjLocations) {
+            Button b = new Button("Travel to: " + loc.name);
+            b.setOnAction(e -> travelTo(loc));
+            buttons.add(b);
+        }
+        return buttons;
     }
 
     private void displayStoryPart() {

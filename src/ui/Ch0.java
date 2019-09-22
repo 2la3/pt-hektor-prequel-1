@@ -132,4 +132,23 @@ public class Ch0 extends Chapter {
         //((Node)(event.getSource())).getScene().getWindow().hide();
     }
 
+    public Home getHome() {
+        return home;
+    }
+
+    public Garden getGarden() {
+        return garden;
+    }
+
+    public Market getMarket() {
+        return market;
+    }
+
+    public TownSquare gettSquare() {
+        return tSquare;
+    }
+
+    public TrainingGround gettGround() {
+        return tGround;
+    }
 }

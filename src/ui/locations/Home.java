@@ -1,9 +1,14 @@
 package ui.locations;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import protagonist.MC;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends Location {
 
@@ -57,6 +62,17 @@ public class Home extends Location {
         btnNext.setDisable(true);
         storyParts.clear();
 
-        System.out.println("Showing play options");
+        VBox vb = new VBox();
+        List<Button> buttons = new ArrayList<>();
+        buttons = getTravelOptions();
+        for (Button b : buttons) {
+            vb.getChildren().add(b);
+        }
+        vb.setAlignment(Pos.CENTER);
+        vb.setSpacing(10);
+        bpMainLayout.setCenter(vb);
+
+        System.out.println("Showing play options - HOME");
     }
 }
+

@@ -12,6 +12,7 @@ import map.enumLcn;
 import monsters.*;
 import npc.Ambulance;
 import protagonist.MC;
+import ui.Ch0;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,6 @@ public class Garden extends Location {
         storyParts.clear();
 
         VBox vb = new VBox();
-        List<enumLcn> adjLocations = WorldMap.getWorldMap().getAdjLocations();
         List<Button> buttons = new ArrayList<>();
         Button sForest = new Button("Shallow Forest");
         Button mForest = new Button("Middle Forest");
@@ -47,11 +47,7 @@ public class Garden extends Location {
         sForest.setOnAction(e ->sForest());
         mForest.setOnAction(e ->mForest());
         dForest.setOnAction(e ->dForest());
-        for (enumLcn loc : adjLocations) {
-            Button b = new Button("Travel to: " + loc.name);
-            b.setOnAction(e -> travelTo(loc));
-            buttons.add(b);
-        }
+        buttons = getTravelOptions();
         vb.getChildren().addAll(sForest,mForest,dForest);
         for (Button b : buttons) {
             vb.getChildren().add(b);
@@ -61,11 +57,6 @@ public class Garden extends Location {
         bpMainLayout.setCenter(vb);
 
         System.out.println("Showing play options - Garden");
-    }
-
-    private void travelTo(enumLcn loc) {
-        WorldMap.getWorldMap().travelTo(loc);
-        // somehow go to the screen for that location?
     }
 
     private void fight(Monster m) {
